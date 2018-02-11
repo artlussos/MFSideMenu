@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "MFSideMenuShadow.h"
 
-extern NSString * const MFSideMenuStateNotificationEvent;
+extern NSString *const MFSideMenuStateNotificationEvent;
 
 typedef enum {
     MFSideMenuPanModeNone = 0, // pan disabled

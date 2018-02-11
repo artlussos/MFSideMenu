@@ -33,7 +33,7 @@
 
 - (id)init {
     self = [super init];
-    if(self) {
+    if (self) {
         self.color = [UIColor blackColor];
         self.opacity = 0.75f;
         self.radius = 10.0f;
@@ -41,7 +41,6 @@
     }
     return self;
 }
-
 
 #pragma mark -
 #pragma mark - Property Setters
@@ -66,12 +65,11 @@
     [self draw];
 }
 
-
 #pragma mark -
 #pragma mark - Drawing
 
 - (void)draw {
-    if(_enabled) {
+    if (_enabled) {
         [self show];
     } else {
         [self hide];
@@ -92,7 +90,6 @@
     self.shadowedView.layer.shadowOpacity = 0.0f;
     self.shadowedView.layer.shadowRadius = 0.0f;
 }
-
 
 #pragma mark -
 #pragma mark - ShadowedView Rotation
