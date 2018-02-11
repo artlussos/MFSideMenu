@@ -158,7 +158,7 @@ typedef enum {
 #pragma mark -
 #pragma mark - UIViewController Rotation
 
--(NSUInteger)supportedInterfaceOrientations {
+-(UIInterfaceOrientationMask)supportedInterfaceOrientations {
     if (self.centerViewController) {
         if ([self.centerViewController isKindOfClass:[UINavigationController class]]) {
             return [((UINavigationController *)self.centerViewController).topViewController supportedInterfaceOrientations];
@@ -188,18 +188,24 @@ typedef enum {
     return UIInterfaceOrientationPortrait;
 }
 
--(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
-    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
-    
+//-(void)willAnimateRotationToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation duration:(NSTimeInterval)duration {
+//    [super willAnimateRotationToInterfaceOrientation:toInterfaceOrientation duration:duration];
+//
+//    [self.shadow shadowedViewWillRotate];
+//}
+
+//- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
+//    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
+//
+//    [self.shadow shadowedViewDidRotate];
+//}
+
+
+- (void)viewWillTransitionToSize:(CGSize)size withTransitionCoordinator:(id<UIViewControllerTransitionCoordinator>)coordinator  {
+    [super viewWillTransitionToSize:size withTransitionCoordinator:coordinator];
+
     [self.shadow shadowedViewWillRotate];
 }
-
-- (void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation {
-    [super didRotateFromInterfaceOrientation:fromInterfaceOrientation];
-    
-    [self.shadow shadowedViewDidRotate];
-}
-
 
 #pragma mark -
 #pragma mark - UIViewController Containment
@@ -348,11 +354,11 @@ typedef enum {
 }
 
 - (void)setMenuState:(MFSideMenuState)menuState completion:(void (^)(void))completion {
-    void (^innerCompletion)() = ^ {
-        _menuState = menuState;
+    void (^innerCompletion)(void) = ^ {
+        self->_menuState = menuState;
         
         [self setUserInteractionStateForCenterViewController];
-        MFSideMenuStateEvent eventType = (_menuState == MFSideMenuStateClosed) ? MFSideMenuStateEventMenuDidClose : MFSideMenuStateEventMenuDidOpen;
+        MFSideMenuStateEvent eventType = (self->_menuState == MFSideMenuStateClosed) ? MFSideMenuStateEventMenuDidClose : MFSideMenuStateEventMenuDidOpen;
         [self sendStateEventNotification:eventType];
         
         if(completion) completion();
@@ -487,7 +493,7 @@ typedef enum {
     }
     
     CGFloat offset = _leftMenuWidth;
-    void (^effects)() = ^ {
+    void (^effects)(void) = ^ {
         [self alignLeftMenuControllerWithCenterViewController];
     };
     
@@ -503,7 +509,7 @@ typedef enum {
     }
     
     CGFloat offset = -1*rightMenuWidth;
-    void (^effects)() = ^ {
+    void (^effects)(void) = ^ {
         [self alignRightMenuControllerWithCenterViewController];
     };
     
@@ -547,7 +553,7 @@ typedef enum {
 - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer {
     if ([gestureRecognizer isKindOfClass:[UIPanGestureRecognizer class]]) {
         CGPoint velocity = [(UIPanGestureRecognizer *)gestureRecognizer velocityInView:gestureRecognizer.view];
-        BOOL isHorizontalPanning = fabsf(velocity.x) > fabsf(velocity.y);
+        BOOL isHorizontalPanning = fabs(velocity.x) > fabs(velocity.y);
         return isHorizontalPanning;
     }
     return YES;
@@ -732,7 +738,7 @@ shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherG
                  additionalAnimations:(void (^)(void))additionalAnimations
                              animated:(BOOL)animated
                            completion:(void (^)(void))completion {
-    void (^innerCompletion)() = ^ {
+    void (^innerCompletion)(void) = ^ {
         self.panGestureVelocity = 0.0;
         if(completion) completion();
     };
