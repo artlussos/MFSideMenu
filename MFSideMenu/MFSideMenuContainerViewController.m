@@ -194,7 +194,8 @@ typedef enum {
     [coordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext> context)
      {
          [self.shadow shadowedViewWillRotate];
-     }                           completion:^(id<UIViewControllerTransitionCoordinatorContext> context)
+     }
+     completion:^(id<UIViewControllerTransitionCoordinatorContext> context)
      {
          [self.shadow shadowedViewDidRotate];
      }];
@@ -575,7 +576,7 @@ typedef enum {
     return YES;
 }
 
-- (BOOL)                             gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
     shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer {
     return NO;
 }
