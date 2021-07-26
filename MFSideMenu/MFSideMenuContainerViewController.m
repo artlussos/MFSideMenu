@@ -132,6 +132,7 @@ typedef enum {
 - (void)viewWillLayoutSubviews {
     [super viewWillLayoutSubviews];
 
+    /*
     if ([self respondsToSelector:@selector(topLayoutGuide)]) {
         UIEdgeInsets insets = UIEdgeInsetsMake([self.topLayoutGuide length], 0, 0, 0);
         if (_leftSideMenuViewController &&
@@ -145,6 +146,7 @@ typedef enum {
             [(UIScrollView *)_rightSideMenuViewController.view setContentInset:insets];
         }
     }
+    */
 }
 
 - (UIStatusBarStyle)preferredStatusBarStyle {
