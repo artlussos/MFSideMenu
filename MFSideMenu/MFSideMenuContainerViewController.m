@@ -172,15 +172,15 @@ typedef enum {
     return [super supportedInterfaceOrientations];
 }
 
-- (BOOL)shouldAutorotate {
-    if (self.centerViewController) {
-        if ([self.centerViewController isKindOfClass:[UINavigationController class]]) {
-            return [((UINavigationController *)self.centerViewController).topViewController shouldAutorotate];
-        }
-        return [self.centerViewController shouldAutorotate];
-    }
-    return YES;
-}
+// - (BOOL)shouldAutorotate {
+//     if (self.centerViewController) {
+//         if ([self.centerViewController isKindOfClass:[UINavigationController class]]) {
+//             return [((UINavigationController *)self.centerViewController).topViewController shouldAutorotate];
+//         }
+//         return [self.centerViewController shouldAutorotate];
+//     }
+//     return YES;
+// }
 
 - (UIInterfaceOrientation)preferredInterfaceOrientationForPresentation {
     if (self.centerViewController) {
